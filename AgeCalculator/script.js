@@ -1,5 +1,6 @@
-let userInput = document.getElementById("date");
+let userInput = document.getElementById("date1");
 userInput.max = new Date().toISOString().split("T")[0];
+let result = document.getElementById("result");
 
 function calculateAge() {
   let dob = new Date(userInput.value);
@@ -17,20 +18,32 @@ function calculateAge() {
   let d3, m3, y3;
   y3 = y2 - y1;
 
-  if(m2 >= m1){
+  if (m2 >= m1) {
     m3 = m2 - m1;
-  }else{
+  } else {
     y3--;
-    m3 = 12 + m2 -m1;
+    m3 = 12 + m2 - m1;
   }
 
-  if(d2 >= d1){
+  if (d2 >= d1) {
     d3 = d2 - d1;
-  }else{
+  } else {
     m3--;
-    m3 = 12 + m2 -m1;
+    d3 = getDaysInMonth(y1, m1) + d2 - d1;
+  }
+
+  if (m3 < 0) {
+    m3 = 11;
+    y3--;
+  }
+  
+  if(userInput == " "){
+    result.innerHTML = `Please I don't have time to waste enter a valid date`; 
+  }else{
+    result.innerHTML = `You are ${y3} years, ${m3} months and ${d3} days old`;
   }
 }
-function getDayInMonth(year, month){
-    return new Date(year, month, 0).getDate();
+
+function getDaysInMonth(year, month) {
+  return new Date(year, month, 0).getDate();
 }
